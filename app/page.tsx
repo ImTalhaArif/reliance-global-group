@@ -1,6 +1,7 @@
 // app/page.tsx
-import Layout from "../Layout";
+import Layout from "./Layout";
 import { motion } from "framer-motion";
+import WaterWave from "react-water-wave";
 
 export default function HomePage() {
   const services = [
@@ -42,21 +43,31 @@ export default function HomePage() {
         </motion.button>
       </section>
 
-      {/* Services Section */}
+      {/* Services Section with Water Ripple */}
       <section className="py-24 px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {services.map((service, index) => (
-          <motion.div
+          <WaterWave
             key={service}
-            className="bg-white/30 backdrop-blur-md rounded-xl shadow-lg p-6 text-center hover:scale-105 transition-transform cursor-pointer"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="w-full h-full"
+            dropRadius={20}
+            perturbance={0.03}
           >
-            <h3 className="text-xl font-semibold text-blue-900 mb-2">{service}</h3>
-            <p className="text-blue-800 text-sm">
-              Learn more about {service.toLowerCase()} and how RGG can help you.
-            </p>
-          </motion.div>
+            {(methods) => (
+              <motion.div
+                onMouseMove={methods.update}
+                onClick={methods.update}
+                className="bg-white/30 backdrop-blur-md rounded-xl shadow-lg p-6 text-center cursor-pointer hover:scale-105 transition-transform duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <h3 className="text-xl font-semibold text-blue-900 mb-2">{service}</h3>
+                <p className="text-blue-800 text-sm">
+                  Learn more about {service.toLowerCase()} and how RGG can help you.
+                </p>
+              </motion.div>
+            )}
+          </WaterWave>
         ))}
       </section>
 
