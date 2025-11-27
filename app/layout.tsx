@@ -1,7 +1,7 @@
 // components/Layout.tsx
 import { ReactNode, useState } from "react";
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import WaterWave from "react-water-wave";
 import { motion, AnimatePresence } from "framer-motion";
 import { Dialog } from "@headlessui/react";
