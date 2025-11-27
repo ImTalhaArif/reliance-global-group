@@ -1,5 +1,5 @@
 // app/page.tsx
-import Layout from "./Layout";
+import Layout from "/Layout";
 import { motion } from "framer-motion";
 import WaterWave from "react-water-wave";
 
