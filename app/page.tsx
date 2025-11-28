@@ -3,14 +3,19 @@
 import { useEffect, useState } from "react";
 import Layout from "./layout";
 import { motion } from "framer-motion";
-import WaterWaveWrapper from "./components/WaterWaveWrapper";
+import dynamic from "next/dynamic";
+
+// Dynamically import WaterWaveWrapper (which itself dynamically imports WaterWave)
+const WaterWaveWrapper = dynamic(
+  () => import("./components/WaterWaveWrapper"),
+  { ssr: false }
+);
 
 export default function HomePage() {
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true); // ensures the component is fully mounted in browser
-  }, []);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null; // ensures no SSR execution
 
   const services = [
     "Tours & Travels",
@@ -22,8 +27,6 @@ export default function HomePage() {
     "Medical Tourism",
     "Labs, Pharmacy, Ambulance",
   ];
-
-  if (!mounted) return null; // prevents hydration errors
 
   return (
     <Layout>
