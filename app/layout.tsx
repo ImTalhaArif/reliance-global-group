@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
 import { Dialog } from "@headlessui/react";
-import WaterWaveWrapper from "../components/WaterWaveWrapper";
+import WaterWaveWrapper from "./components/WaterWaveWrapper";
 
 interface LayoutProps {
   children: ReactNode;
