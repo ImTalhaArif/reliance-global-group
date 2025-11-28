@@ -1,3 +1,4 @@
+"use client";
 // app/page.tsx
 import Layout from "./layout";
 import { motion } from "framer-motion";
