@@ -1,7 +1,7 @@
 // app/page.tsx
 import Layout from "./layout";
 import { motion } from "framer-motion";
-import WaterWave from "react-water-wave";
+import WaterWaveWrapper from "./components/WaterWaveWrapper";
 
 export default function HomePage() {
   const services = [
@@ -46,8 +46,8 @@ export default function HomePage() {
       {/* Services Section */}
       <section className="py-24 px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {services.map((service, index) => (
-          <WaterWave key={service} dropRadius={20} perturbance={0.03}>
-            {(methods: { update: () => void }) => (
+          <WaterWaveWrapper key={service} dropRadius={20} perturbance={0.03}>
+            {(methods) => (
               <motion.div
                 onMouseMove={methods.update}
                 onClick={methods.update}
@@ -62,7 +62,7 @@ export default function HomePage() {
                 </p>
               </motion.div>
             )}
-          </WaterWave>
+          </WaterWaveWrapper>
         ))}
       </section>
 
