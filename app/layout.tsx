@@ -26,10 +26,16 @@ const Layout = ({ children }: LayoutProps) => {
           onMouseMove={methods.update}
           onClick={methods.update}
         >
+          {/* Header */}
           <Header toggleMobileMenu={() => setMobileMenuOpen(true)} />
+
+          {/* Main Content */}
           <main className="flex-1 z-10">{children}</main>
+
+          {/* Footer */}
           <Footer />
 
+          {/* Mobile Menu */}
           <AnimatePresence>
             {mobileMenuOpen && (
               <Dialog
