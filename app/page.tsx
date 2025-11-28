@@ -1,14 +1,13 @@
-// app/page.tsx
 "use client";
 
-import { motion } from "framer-motion";
 import Layout from "./layout";
+import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 
-const WaterWaveWrapper = dynamic(
-  () => import("./components/WaterWaveWrapper"),
-  { ssr: false }
-);
+// Only import the client wrapper
+const WaterWaveBox = dynamic(() => import("./components/WaterWaveBox"), {
+  ssr: false,
+});
 
 export default function HomePage() {
   const services = [
@@ -24,10 +23,30 @@ export default function HomePage() {
 
   return (
     <Layout>
+      {/* Hero Section */}
+      <section className="flex flex-col items-center justify-center text-center py-32 px-6">
+        <motion.h2
+          className="text-4xl md:text-5xl font-extrabold text-blue-900 mb-6"
+          initial={{ opacity: 0, y: -40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
+          Welcome to Reliance Global Group
+        </motion.h2>
+        <motion.p
+          className="text-lg md:text-xl text-blue-800 mb-12 max-w-2xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.3 }}
+        >
+          Explore our services in travel, healthcare, education, and more.
+        </motion.p>
+      </section>
+
       {/* Services Section */}
       <section className="py-24 px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {services.map((service, index) => (
-          <WaterWaveWrapper key={service} dropRadius={20} perturbance={0.03}>
+        {services.map((service) => (
+          <WaterWaveBox key={service} dropRadius={20} perturbance={0.03}>
             {(methods) => (
               <motion.div
                 onMouseMove={() => methods.update()}
@@ -38,11 +57,12 @@ export default function HomePage() {
                   {service}
                 </h3>
                 <p className="text-blue-800 text-sm">
-                  Learn more about {service.toLowerCase()} and how RGG can help you.
+                  Learn more about {service.toLowerCase()} and how RGG can help
+                  you.
                 </p>
               </motion.div>
             )}
-          </WaterWaveWrapper>
+          </WaterWaveBox>
         ))}
       </section>
     </Layout>
