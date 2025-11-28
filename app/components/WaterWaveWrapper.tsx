@@ -1,8 +1,9 @@
-"use client"; // Ensure this runs only on client
+"use client";
 
-import dynamic from "next/dynamic";
 import { ReactNode } from "react";
+import dynamic from "next/dynamic";
 
+// Load WaterWave dynamically (client only)
 const WaterWaveDynamic = dynamic(() => import("react-water-wave"), { ssr: false });
 
 interface Methods {
@@ -16,13 +17,15 @@ interface WaterWaveWrapperProps {
   perturbance?: number;
 }
 
-const WaterWaveWrapper = ({ children, className, dropRadius, perturbance }: WaterWaveWrapperProps) => {
+const WaterWaveWrapper = ({
+  children,
+  className,
+  dropRadius,
+  perturbance,
+}: WaterWaveWrapperProps) => {
+  // @ts-ignore
   return (
-    <WaterWaveDynamic
-      className={className}
-      dropRadius={dropRadius}
-      perturbance={perturbance}
-    >
+    <WaterWaveDynamic className={className} dropRadius={dropRadius} perturbance={perturbance}>
       {(methods: Methods) => children(methods)}
     </WaterWaveDynamic>
   );
