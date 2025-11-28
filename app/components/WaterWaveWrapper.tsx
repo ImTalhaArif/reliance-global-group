@@ -19,18 +19,24 @@ const WaterWaveWrapper = ({
   dropRadius = 20,
   perturbance = 0.03,
 }: WaterWaveWrapperProps) => {
-  const [isMounted, setIsMounted] = useState(false);
   const [WaterWave, setWaterWave] = useState<any>(null);
 
   useEffect(() => {
-    setIsMounted(true);
+    // Dynamically import ONLY on client
     import("react-water-wave").then((mod) => setWaterWave(() => mod.default));
   }, []);
 
-  if (!isMounted || !WaterWave) return <>{children({ update: () => {} })}</>;
+  // While loading or on server, render children with dummy methods
+  if (!WaterWave) {
+    return <>{children({ update: () => {} })}</>;
+  }
 
   return (
-    <WaterWave className={className} dropRadius={dropRadius} perturbance={perturbance}>
+    <WaterWave
+      className={className}
+      dropRadius={dropRadius}
+      perturbance={perturbance}
+    >
       {(methods: Methods) => children(methods)}
     </WaterWave>
   );
