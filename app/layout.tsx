@@ -1,3 +1,4 @@
+"use client";
 // components/Layout.tsx
 import { ReactNode, useState } from "react";
 import Header from "./components/Header";
