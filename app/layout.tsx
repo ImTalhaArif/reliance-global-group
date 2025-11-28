@@ -3,7 +3,8 @@
 import { ReactNode, useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import WaterWave from "react-water-wave";
+import dynamic from "next/dynamic";
+const WaterWave = dynamic(() => import("react-water-wave"), { ssr: false });
 import { motion, AnimatePresence } from "framer-motion";
 import { Dialog } from "@headlessui/react";
 
