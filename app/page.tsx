@@ -1,10 +1,17 @@
 "use client";
-// app/page.tsx
+
+import { useEffect, useState } from "react";
 import Layout from "./layout";
 import { motion } from "framer-motion";
 import WaterWaveWrapper from "./components/WaterWaveWrapper";
 
 export default function HomePage() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true); // ensures the component is fully mounted in browser
+  }, []);
+
   const services = [
     "Tours & Travels",
     "Jobs",
@@ -15,6 +22,8 @@ export default function HomePage() {
     "Medical Tourism",
     "Labs, Pharmacy, Ambulance",
   ];
+
+  if (!mounted) return null; // prevents hydration errors
 
   return (
     <Layout>
@@ -50,8 +59,8 @@ export default function HomePage() {
           <WaterWaveWrapper key={service} dropRadius={20} perturbance={0.03}>
             {(methods) => (
               <motion.div
-                onMouseMove={methods.update}
-                onClick={methods.update}
+                onMouseMove={() => methods?.update?.()}
+                onClick={() => methods?.update?.()}
                 className="bg-white/30 backdrop-blur-md rounded-xl shadow-lg p-6 text-center cursor-pointer hover:scale-105 transition-transform duration-300"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
