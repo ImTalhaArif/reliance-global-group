@@ -43,16 +43,11 @@ export default function HomePage() {
         </motion.button>
       </section>
 
-      {/* Services Section with Water Ripple */}
+      {/* Services Section */}
       <section className="py-24 px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {services.map((service, index) => (
-          <WaterWave
-            key={service}
-            className="w-full h-full"
-            dropRadius={20}
-            perturbance={0.03}
-          >
-            {(methods) => (
+          <WaterWave key={service} dropRadius={20} perturbance={0.03}>
+            {(methods: { update: () => void }) => (
               <motion.div
                 onMouseMove={methods.update}
                 onClick={methods.update}
