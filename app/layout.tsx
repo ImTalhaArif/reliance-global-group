@@ -1,4 +1,3 @@
-"use client";
 // components/Layout.tsx
 import { ReactNode, useState } from "react";
 import Header from "./components/Header";
@@ -16,7 +15,7 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <WaterWave className="absolute inset-0 z-0" dropRadius={20} perturbance={0.03}>
-      {(methods) => (
+      {(methods: { update: () => void }) => (
         <div
           className="relative z-10 flex flex-col min-h-screen bg-gradient-to-b from-blue-100 via-blue-50 to-blue-200"
           onMouseMove={methods.update}
@@ -25,34 +24,8 @@ const Layout = ({ children }: LayoutProps) => {
           {/* Header */}
           <Header toggleMobileMenu={() => setMobileMenuOpen(true)} />
 
-          {/* Hero Section */}
-          <section className="flex flex-col items-center justify-center text-center py-32 px-6 relative z-10">
-            <motion.h1
-              className="text-5xl md:text-6xl font-extrabold text-blue-900 mb-6"
-              initial={{ opacity: 0, y: -50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1 }}
-            >
-              Welcome to Reliance Global Group
-            </motion.h1>
-            <motion.p
-              className="text-lg md:text-xl text-blue-800 mb-8 max-w-2xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.3 }}
-            >
-              Explore our services in travel, healthcare, education, and more.
-            </motion.p>
-            <motion.button
-              className="bg-blue-700 text-white px-8 py-3 rounded-xl shadow-lg hover:scale-105 transition-transform duration-300"
-              whileHover={{ scale: 1.1 }}
-            >
-              Get Started
-            </motion.button>
-          </section>
-
           {/* Main Content */}
-          <main className="flex-1 z-10 px-6">{children}</main>
+          <main className="flex-1 z-10">{children}</main>
 
           {/* Footer */}
           <Footer />
