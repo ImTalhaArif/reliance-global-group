@@ -1,15 +1,21 @@
 "use client";
-// components/Layout.tsx
+
 import { ReactNode, useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import dynamic from "next/dynamic";
-const WaterWave = dynamic(() => import("react-water-wave"), { ssr: false });
 import { motion, AnimatePresence } from "framer-motion";
 import { Dialog } from "@headlessui/react";
 
+// Client-only WaterWave import to fix SSR and TS issues
+const WaterWave = dynamic(() => import("react-water-wave"), { ssr: false });
+
 interface LayoutProps {
   children: ReactNode;
+}
+
+interface Methods {
+  update: () => void;
 }
 
 const Layout = ({ children }: LayoutProps) => {
@@ -17,7 +23,7 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <WaterWave className="absolute inset-0 z-0" dropRadius={20} perturbance={0.03}>
-      {(methods: { update: () => void }) => (
+      {(methods: Methods) => (
         <div
           className="relative z-10 flex flex-col min-h-screen bg-gradient-to-b from-blue-100 via-blue-50 to-blue-200"
           onMouseMove={methods.update}
