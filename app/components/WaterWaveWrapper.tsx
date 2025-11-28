@@ -1,10 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
-import dynamic from "next/dynamic";
-
-// Load WaterWave dynamically (client only)
-const WaterWaveDynamic = dynamic(() => import("react-water-wave"), { ssr: false });
+import { ReactNode, useEffect, useState } from "react";
 
 interface Methods {
   update: () => void;
@@ -20,14 +16,23 @@ interface WaterWaveWrapperProps {
 const WaterWaveWrapper = ({
   children,
   className,
-  dropRadius,
-  perturbance,
+  dropRadius = 20,
+  perturbance = 0.03,
 }: WaterWaveWrapperProps) => {
-  // @ts-ignore
+  const [isMounted, setIsMounted] = useState(false);
+  const [WaterWave, setWaterWave] = useState<any>(null);
+
+  useEffect(() => {
+    setIsMounted(true);
+    import("react-water-wave").then((mod) => setWaterWave(() => mod.default));
+  }, []);
+
+  if (!isMounted || !WaterWave) return <>{children({ update: () => {} })}</>;
+
   return (
-    <WaterWaveDynamic className={className} dropRadius={dropRadius} perturbance={perturbance}>
+    <WaterWave className={className} dropRadius={dropRadius} perturbance={perturbance}>
       {(methods: Methods) => children(methods)}
-    </WaterWaveDynamic>
+    </WaterWave>
   );
 };
 
