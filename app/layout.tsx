@@ -15,7 +15,11 @@ const Layout = ({ children }: LayoutProps) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <WaterWaveWrapper className="absolute inset-0 z-0" dropRadius={20} perturbance={0.03}>
+    <WaterWaveWrapper
+      className="absolute inset-0 z-0"
+      dropRadius={20}
+      perturbance={0.03}
+    >
       {(methods) => (
         <div
           className="relative z-10 flex flex-col min-h-screen bg-gradient-to-b from-blue-100 via-blue-50 to-blue-200"
