@@ -1,60 +1,58 @@
 "use client";
 
 import "./globals.css";
-
 import { ReactNode, useState } from "react";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
 import { Dialog } from "@headlessui/react";
 
-interface LayoutProps {
-  children: ReactNode;
-}
-
-const Layout = ({ children }: LayoutProps) => {
+export default function RootLayout({ children }: { children: ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="relative z-10 flex flex-col min-h-screen bg-gradient-to-b from-blue-100 via-blue-50 to-blue-200">
-      <Header toggleMobileMenu={() => setMobileMenuOpen(true)} />
-      <main className="flex-1 z-10">{children}</main>
-      <Footer />
+    <html lang="en">
+      <body className="relative z-10 flex flex-col min-h-screen bg-gradient-to-b from-blue-100 via-blue-50 to-blue-200">
+        <Header toggleMobileMenu={() => setMobileMenuOpen(true)} />
 
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <Dialog
-            open={mobileMenuOpen}
-            onClose={() => setMobileMenuOpen(false)}
-            className="fixed inset-0 z-50 flex items-center justify-end bg-black/40"
-          >
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="bg-white w-3/4 max-w-sm h-full p-8 relative rounded-l-3xl shadow-2xl flex flex-col"
+        <main className="flex-1 z-10">{children}</main>
+
+        <Footer />
+
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <Dialog
+              open={mobileMenuOpen}
+              onClose={() => setMobileMenuOpen(false)}
+              className="fixed inset-0 z-50 flex items-center justify-end bg-black/40"
             >
-              <button
-                className="absolute top-5 right-5 text-2xl font-bold text-blue-700"
-                onClick={() => setMobileMenuOpen(false)}
+              <motion.div
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                className="bg-white w-3/4 max-w-sm h-full p-8 relative rounded-l-3xl shadow-2xl flex flex-col"
               >
-                ✕
-              </button>
-              <nav className="mt-16 flex flex-col gap-6 text-lg font-semibold text-blue-900">
-                <a href="#">Tours & Travels</a>
-                <a href="#">Jobs</a>
-                <a href="#">Healthcare</a>
-                <a href="#">Study Abroad</a>
-                <a href="#">Insurance</a>
-                <a href="#">Virtual University</a>
-              </nav>
-            </motion.div>
-          </Dialog>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-};
+                <button
+                  className="absolute top-5 right-5 text-2xl font-bold text-blue-700"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  ✕
+                </button>
 
-export default Layout;
+                <nav className="mt-16 flex flex-col gap-6 text-lg font-semibold text-blue-900">
+                  <a href="#">Tours & Travels</a>
+                  <a href="#">Jobs</a>
+                  <a href="#">Healthcare</a>
+                  <a href="#">Study Abroad</a>
+                  <a href="#">Insurance</a>
+                  <a href="#">Virtual University</a>
+                </nav>
+              </motion.div>
+            </Dialog>
+          )}
+        </AnimatePresence>
+      </body>
+    </html>
+  );
+}
