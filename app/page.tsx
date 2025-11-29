@@ -4,7 +4,6 @@ import Layout from "./layout";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 
-// Only import the client wrapper
 const WaterWaveBox = dynamic(() => import("./components/WaterWaveBox"), {
   ssr: false,
 });
@@ -33,6 +32,7 @@ export default function HomePage() {
         >
           Welcome to Reliance Global Group
         </motion.h2>
+
         <motion.p
           className="text-lg md:text-xl text-blue-800 mb-12 max-w-2xl"
           initial={{ opacity: 0, y: 20 }}
@@ -56,6 +56,7 @@ export default function HomePage() {
                 <h3 className="text-xl font-semibold text-blue-900 mb-2">
                   {service}
                 </h3>
+
                 <p className="text-blue-800 text-sm">
                   Learn more about {service.toLowerCase()} and how RGG can help
                   you.
