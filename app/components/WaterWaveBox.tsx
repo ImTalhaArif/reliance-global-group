@@ -1,37 +1,38 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { ReactNode } from "react";
+import { FC, ReactNode } from "react";
 
-// Import dynamically to avoid SSR crash
-const WaterWaveDynamic = dynamic(() => import("react-water-wave"), { ssr: false });
-
-// Define the types manually
-interface Methods {
-  update: () => void;
-}
+// Dynamically import WaterWave only on the client
+const WaterWave = dynamic(() => import("react-water-wave"), {
+  ssr: false,
+});
 
 interface WaterWaveBoxProps {
-  children: (methods: Methods) => ReactNode;
+  imageUrl: string;
   className?: string;
-  dropRadius?: number;
-  perturbance?: number;
+  children?: ReactNode;
 }
 
-export default function WaterWaveBox({
-  children,
+const WaterWaveBox: FC<WaterWaveBoxProps> = ({
+  imageUrl,
   className,
-  dropRadius,
-  perturbance,
-}: WaterWaveBoxProps) {
-  // @ts-ignore — tell TypeScript to ignore typing
+  children,
+}) => {
   return (
-    <WaterWaveDynamic
-      className={className}
-      dropRadius={dropRadius}
-      perturbance={perturbance}
-    >
-      {(methods: Methods) => children(methods)}
-    </WaterWaveDynamic>
+    <div className={className}>
+      {/* WaterWave DOES NOT SUPPORT function children */}
+      <WaterWave
+        style={{ width: "100%", height: "100%" }}
+        imageUrl={imageUrl}
+      >
+        {/* Only normal JSX children */}
+        <div className="w-full h-full flex items-center justify-center">
+          {children}
+        </div>
+      </WaterWave>
+    </div>
   );
-}
+};
+
+export default WaterWaveBox;
