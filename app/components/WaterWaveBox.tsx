@@ -1,18 +1,39 @@
 "use client";
 
-interface WaterWaveBoxProps {
-  className?: string;
+import React, { useEffect, useRef } from "react";
+import WaterWave from "water-wave-effect";
+
+export interface WaterWaveBoxProps {
+  dropRadius?: number;
+  perturbance?: number;
+  children?: (methods: { update: () => void }) => React.ReactNode;
 }
 
-export default function WaterWaveBox({ className }: WaterWaveBoxProps) {
+export default function WaterWaveBox({
+  dropRadius = 20,
+  perturbance = 0.03,
+  children,
+}: WaterWaveBoxProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const waveRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    waveRef.current = new WaterWave({
+      el: containerRef.current,
+      dropRadius,
+      perturbance,
+    });
+
+    return () => {
+      if (waveRef.current) waveRef.current.destroy();
+    };
+  }, [dropRadius, perturbance]);
+
   return (
-    <div
-      className={`relative overflow-hidden ${className}`}
-      style={{
-        background: "url('/your-image.jpg') center/cover no-repeat",
-      }}
-    >
-      <div className="absolute inset-0 water-wave"></div>
+    <div ref={containerRef} className="w-full h-full relative">
+      {children && children({ update: () => waveRef.current?.update() })}
     </div>
   );
 }
