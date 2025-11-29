@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import WaterWave from "./water-wave-effect";
+import WaterWave from "water-wave-effect";
 
 export interface WaterWaveBoxProps {
   dropRadius?: number;
