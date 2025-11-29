@@ -1,5 +1,7 @@
 "use client";
 
+import "./globals.css";
+
 import { ReactNode, useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
