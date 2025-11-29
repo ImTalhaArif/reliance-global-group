@@ -1,9 +1,9 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 
-// Dynamically import WaterWave only on the client
+// Dynamically import WaterWave
 const WaterWave = dynamic(() => import("react-water-wave"), {
   ssr: false,
 });
@@ -11,26 +11,20 @@ const WaterWave = dynamic(() => import("react-water-wave"), {
 interface WaterWaveBoxProps {
   imageUrl: string;
   className?: string;
-  children?: ReactNode;
 }
 
-const WaterWaveBox: FC<WaterWaveBoxProps> = ({
-  imageUrl,
-  className,
-  children,
-}) => {
+const WaterWaveBox: FC<WaterWaveBoxProps> = ({ imageUrl, className }) => {
   return (
     <div className={className}>
-      {/* WaterWave DOES NOT SUPPORT function children */}
+      {/* WaterWave DOES NOT SUPPORT CHILDREN */}
+      {/* NO JSX INSIDE */}
       <WaterWave
-        style={{ width: "100%", height: "100%" }}
         imageUrl={imageUrl}
-      >
-        {/* Only normal JSX children */}
-        <div className="w-full h-full flex items-center justify-center">
-          {children}
-        </div>
-      </WaterWave>
+        style={{
+          width: "100%",
+          height: "100%",
+        }}
+      />
     </div>
   );
 };
